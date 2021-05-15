@@ -1,51 +1,27 @@
 package gfg;
 
-
-import logger.Logger;
 import lombok.Getter;
-import lombok.var;
-
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Setter;
 
 public class CalculatingScheduler {
 
-    private static final int THREAD_COUNT = Runtime.getRuntime().availableProcessors();
-    public static int loadPercent = 20;
+    public static final int SUBTASK_COUNT = 20;
+
+    @Setter
+    private static int estimatedTaskCount = 0;
 
     @Getter
-    private double result = 0;
+    private static double result;
 
-    private final List<Thread> processingThreads = new ArrayList<>();
-
-    public CalculatingScheduler init(CalculatingTask task) {
-        Logger.log("Количество потоков: " + THREAD_COUNT);
-        double calculatedPeriod = (task.getUpperInterval() - task.getDownInterval()) / THREAD_COUNT;
-        double taskInterval = task.getDownInterval();
-        for (var i = 0; i < THREAD_COUNT; i++) {
-            processingThreads.add(new Thread(new CalculatingTask(taskInterval, taskInterval + calculatedPeriod, this)));
-            taskInterval = taskInterval + calculatedPeriod;
-        }
-        return this;
+    public static synchronized void reset(){
+        result = 0;
     }
 
-    public CalculatingScheduler start() {
-        processingThreads.forEach(Thread::start);
-        return this;
+    public static synchronized int decAndGet(){
+        return --estimatedTaskCount;
     }
 
-    public synchronized void add(double localResult) {
+    public synchronized static void add(double localResult) {
         result += localResult;
-    }
-
-    public double join() {
-        processingThreads.forEach(processingThread -> {
-            try {
-                processingThread.join();
-            } catch (InterruptedException ignore) {
-            }
-        });
-        Logger.log("Результат вычислений :" + result);
-        return result;
     }
 }

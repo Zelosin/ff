@@ -4,10 +4,10 @@ public class GFG {
 
     public static double GLOBAL_UPPER_INTERVAL = 1;
     public static double GLOBAL_DOWN_INTERVAL = 0.5;
-    public static double GLOBAL_STEP = 0.0000005;
+    public static double GLOBAL_STEP = 0.00000001;
 
     static double y(double x){
-        return Math.sqrt(x);
+        return Math.pow(Math.E,x) / (x);
     }
 
     public static double trapezoidal(double a, double b, double h){

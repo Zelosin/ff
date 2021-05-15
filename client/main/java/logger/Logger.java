@@ -11,7 +11,7 @@ public class Logger {
     }
 
     public static void log(String text) {
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             dLogger.getItems().add(text);
             dLogger.refresh();
         });

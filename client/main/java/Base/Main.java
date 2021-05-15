@@ -19,7 +19,7 @@ public class Main extends Application {
         primaryStage.setOnCloseRequest(event -> {
             System.exit(1);
         });
-        mPrimaryStage.setTitle("Высокопроизводительные вычисления. Вариант №6. Клиент.");
+        mPrimaryStage.setTitle("Высокопроизводительные вычисления. Вариант №6. Сервер.");
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/PrimeWindowFXML.fxml"));
         Parent root = loader.load();
@@ -27,6 +27,4 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-
 }
